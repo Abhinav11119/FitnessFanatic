@@ -1,0 +1,25 @@
+body{
+    background-color: mediumslateblue;
+    font-family: sans-serif;
+    color: white;
+}
+#show{
+    background-color: mediumslateblue;
+    width: 300px;
+    height: 400px;
+    position: relative;
+    margin-top: -20px;
+    margin-left: 300px;
+}
+#calo{
+    background-color: mediumslateblue;
+    width: 250px;
+    position: relative;
+    margin-top: -370px;
+    font-size: x-large;
+}
+#add{
+    border: double;
+    background-color: mediumslateblue;
+    color: white;
+}
