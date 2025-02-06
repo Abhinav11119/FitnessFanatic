@@ -11,8 +11,16 @@ const totalProtein = document.getElementById('total-protein');
 const totalFat = document.getElementById('total-fat');
 const totalCarbs = document.getElementById('total-carbs');
 const itemsList = document.getElementById('items-list');
-
+const heightfeild = document.getElementById('height');
+const weightfeild = document.getElementById('weight')
+const agefeild = document.getElementById('age');
+const genfeild = document.getElementById('gen');
+const calcbut = document.getElementById('calc');
+const req = document.getElementById('calrequiement');
+const req2 = document.getElementById('prorequiement')
+const actfeild = document.getElementById('act');
 let selectedFoods = [];
+;
 
 searchInput.addEventListener('input', async () => {
     const query = searchInput.value;
@@ -57,10 +65,28 @@ addButton.addEventListener('click', () => {
             }
         };
         selectedFoods.push(foodDetails);
-        addItemToList(foodDetails.description);
+        addItemToList(foodDetails.description, foodDetails);
         updateTotalNutrition();
     }
 });
+
+calcbut.addEventListener('click', () => {
+    actvalue = {sedentry:1.2,light:1.375,moderate:1.55,veryactive:1.725,insane:1.9}
+    const aclevel = actfeild.value
+    const age = parseFloat(agefeild.value);
+    const height = parseFloat(heightfeild.value);
+    const weight = parseFloat(weightfeild.value);
+    const gen = genfeild.value;
+    let pro = 0
+    let cal = 0;
+    if(gen==='M'){cal = (88.362 + (13.397*weight)+(4.799*height)-(5.677*age))*actvalue[aclevel];}
+    else if(gen==='F'){cal = (447.593 + (9.247*weight)+(3.098*height)-(4.330*age))*actvalue[aclevel];}
+    pro = weight*0.65*actvalue[aclevel];
+    req.innerHTML = `Required Calories: ${cal.toFixed(2)} kcal`;
+    req2.innerHTML = `Advised Minimum Protein: ${pro.toFixed(2)} g`
+
+})
+
 
 function updateSelect(foods) {
     foodSelect.innerHTML = '';
@@ -69,6 +95,7 @@ function updateSelect(foods) {
         option.value = food.fdcId;
         option.textContent = food.description;
         foodSelect.appendChild(option);
+
     });
     nutritionInfo.style.display = 'none'; // Hide nutrition info when updating the select
 }
@@ -91,10 +118,26 @@ function displayNutritionInfo(foodDetails) {
     nutritionInfo.style.display = 'block'; // Show nutrition info box
 }
 
-function addItemToList(description) {
+function addItemToList(description, food) {
     const listItem = document.createElement('li');
+    listItem.className = 'list-item'; // Add a class for styling
     listItem.textContent = description;
+
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.className = 'remove-button'; // Add a class for styling
+    removeButton.onclick = function() {
+        removeItemFromList(listItem, food);
+    };
+
+    listItem.appendChild(removeButton);
     itemsList.appendChild(listItem);
+}
+
+function removeItemFromList(listItem, food) {
+    itemsList.removeChild(listItem);
+    selectedFoods = selectedFoods.filter(item => item !== food);
+    updateTotalNutrition();
 }
 
 function updateTotalNutrition() {

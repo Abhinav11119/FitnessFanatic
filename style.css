@@ -16,8 +16,33 @@ input, select, button {
     border: 1px solid #ddd;
     padding: 10px;
     margin-top: 20px;
+    width: 700px;
+}
+#nutrition-info{
+    display: none;
 }
 
 #total-nutrition-info {
     display: block;
+}
+#calrequiement,#prorequiement{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+    margin: 5px;
+}
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.remove-button {
+    background-color: rgb(234, 80, 80);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
 }
