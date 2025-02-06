@@ -37,6 +37,9 @@ button {
 button:hover {
     background-color: #02a837;
 }
+#food-select{
+    width: 40vw;
+}
 
 #nutrition-info, #total-nutrition-info, #added-items {
     border: 1px solid #ddd;
@@ -119,4 +122,18 @@ h1 {
     padding: 10px;
     margin-bottom: -5px;
     color: #04e14a;
+}
+
+#nutritionChart {
+    max-width: 400px;
+    margin: 20px auto;
+    margin-left: auto;
+}
+#nutrition-chart
+{
+    width: 400px;
+    position: absolute;
+    left: 70vw;
+    top: 63vh
+
 }

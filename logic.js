@@ -153,4 +153,44 @@ function updateTotalNutrition() {
     totalProtein.textContent = totals.protein.toFixed(2);
     totalFat.textContent = totals.fat.toFixed(2);
     totalCarbs.textContent = totals.carbs.toFixed(2);
+
+    // Update the chart
+    updateNutritionChart(totals);
+}
+
+function updateNutritionChart(totals) {
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    console.log('Updating chart with totals:', totals); // Debugging log
+    const data = {
+        labels: ['Protein', 'Fat', 'Carbohydrates'],
+        datasets: [{
+            data: [totals.protein, totals.fat*2, totals.carbs],
+            backgroundColor: ['#36A2EB', '#FFCE56', '#4BC0C0'],
+        }]
+    };
+
+    if (window.nutritionChart instanceof Chart) {
+        window.nutritionChart.data = data;
+        window.nutritionChart.update();
+    } else {
+        window.nutritionChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 }
