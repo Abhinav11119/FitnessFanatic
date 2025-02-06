@@ -5,6 +5,14 @@ const DETAILS_API_URL = `https://api.nal.usda.gov/fdc/v1/food/`;
 const searchInput = document.getElementById('food-search');
 const foodSelect = document.getElementById('food-select');
 const nutritionInfo = document.getElementById('nutrition-info');
+const addButton = document.getElementById('add-button');
+const totalCalories = document.getElementById('total-calories');
+const totalProtein = document.getElementById('total-protein');
+const totalFat = document.getElementById('total-fat');
+const totalCarbs = document.getElementById('total-carbs');
+const itemsList = document.getElementById('items-list');
+
+let selectedFoods = [];
 
 searchInput.addEventListener('input', async () => {
     const query = searchInput.value;
@@ -31,6 +39,26 @@ foodSelect.addEventListener('change', async () => {
         } catch (error) {
             console.error('Error fetching food details:', error);
         }
+    }
+});
+
+addButton.addEventListener('click', () => {
+    const fdcId = foodSelect.value;
+    if (fdcId) {
+        const selectedOption = foodSelect.options[foodSelect.selectedIndex];
+        const foodDetails = {
+            fdcId,
+            description: selectedOption.text,
+            nutrients: {
+                calories: parseFloat(document.querySelector('#nutrition-info p:nth-child(2) strong').nextSibling.textContent),
+                protein: parseFloat(document.querySelector('#nutrition-info p:nth-child(3) strong').nextSibling.textContent),
+                fat: parseFloat(document.querySelector('#nutrition-info p:nth-child(4) strong').nextSibling.textContent),
+                carbs: parseFloat(document.querySelector('#nutrition-info p:nth-child(5) strong').nextSibling.textContent)
+            }
+        };
+        selectedFoods.push(foodDetails);
+        addItemToList(foodDetails.description);
+        updateTotalNutrition();
     }
 });
 
@@ -61,4 +89,25 @@ function displayNutritionInfo(foodDetails) {
         <p><strong>Carbohydrates:</strong> ${carbs.amount} g</p>
     `;
     nutritionInfo.style.display = 'block'; // Show nutrition info box
+}
+
+function addItemToList(description) {
+    const listItem = document.createElement('li');
+    listItem.textContent = description;
+    itemsList.appendChild(listItem);
+}
+
+function updateTotalNutrition() {
+    const totals = selectedFoods.reduce((acc, food) => {
+        acc.calories += food.nutrients.calories;
+        acc.protein += food.nutrients.protein;
+        acc.fat += food.nutrients.fat;
+        acc.carbs += food.nutrients.carbs;
+        return acc;
+    }, { calories: 0, protein: 0, fat: 0, carbs: 0 });
+
+    totalCalories.textContent = totals.calories.toFixed(2);
+    totalProtein.textContent = totals.protein.toFixed(2);
+    totalFat.textContent = totals.fat.toFixed(2);
+    totalCarbs.textContent = totals.carbs.toFixed(2);
 }
