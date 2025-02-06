@@ -7,24 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <input type="text" id="food-search" placeholder="Search for food...">
-        <select id="food-select"></select>
-        <button id="add-button">Add to List</button>
-    </div>
-    <div id="nutrition-info"></div>
-    <div id="added-items">
-        <h3>Added Items</h3>
-        <ul id="items-list"></ul>
-    </div>
-    <div id="total-nutrition-info">
-        <h3>Total Nutrition</h3>
-        <p><strong>Calories:</strong> <span id="total-calories">0</span> kcal</p>
-        <p><strong>Protein:</strong> <span id="total-protein">0</span> g </p>
-        <p><strong>Fat:</strong> <span id="total-fat">0</span> g</p>
-        <p><strong>Carbohydrates:</strong> <span id="total-carbs">0</span> g</p>
-    </div>
-    <div>
+    <div id="calorie-calculator">
         <input type="text" id="weight" placeholder="Enter Weight kg">
         <input type="text" id="height" placeholder="Enter height cm">
         <input type="text" id="age" placeholder="Enter age">
@@ -42,6 +25,24 @@
         <button id="calc">Calculate</button>
         <div id="calrequiement">Daily Calorie Requiement:</div>
         <div id="prorequiement">Advised Minimum Protein:</div>
+    </div>
+    <div>
+        <input type="text" id="food-search" placeholder="Search for food...">
+        <select id="food-select"></select>
+        <button id="add-button">Add to List</button>
+    </div>
+    <div id="nutrition-info"></div>
+
+    <div id="total-nutrition-info">
+        <h3>Total Nutrition</h3>
+        <p><strong>Calories:</strong> <span id="total-calories">0</span> kcal</p>
+        <p><strong>Protein:</strong> <span id="total-protein">0</span> g </p>
+        <p><strong>Fat:</strong> <span id="total-fat">0</span> g</p>
+        <p><strong>Carbohydrates:</strong> <span id="total-carbs">0</span> g</p>
+    </div>
+    <div id="added-items">
+        <h3>Added Items</h3>
+        <ul id="items-list"></ul>
     </div>
     <script src="logic.js"></script>
 </body>
